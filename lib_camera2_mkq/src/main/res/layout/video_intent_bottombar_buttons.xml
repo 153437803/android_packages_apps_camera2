@@ -15,7 +15,7 @@
 -->
 
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:camera="http://schemas.android.com/apk/res/com.android.camera2"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
         <ImageButton
@@ -34,11 +34,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
-            camera:imageIds="@array/video_flashmode_icons" />
+            app:imageIds="@array/video_flashmode_icons" />
         <com.android.camera.MultiToggleImageButton
             android:id="@+id/camera_toggle_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
-            camera:imageIds="@array/camera_id_icons" />
+            app:imageIds="@array/camera_id_icons" />
 </merge>

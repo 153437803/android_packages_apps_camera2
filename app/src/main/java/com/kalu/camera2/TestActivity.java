@@ -1,4 +1,4 @@
-package com.kalu.camera;
+package com.kalu.camera2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.android.camera.CameraActivity;
-import com.android.camera2.R;
 
 public class TestActivity extends AppCompatActivity {
 

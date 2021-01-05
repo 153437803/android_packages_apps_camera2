@@ -160,8 +160,6 @@ import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.MemoryCategory;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.executor.FifoPriorityThreadPoolExecutor;
-import com.android.camera.exif.ExifInterface;
-
 import com.google.common.base.Optional;
 import com.google.common.logging.eventprotos;
 import com.google.common.logging.eventprotos.ForegroundEvent.ForegroundSource;
@@ -1368,19 +1366,20 @@ public class CameraActivity extends QuickActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle presses on the action bar items
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-            case R.id.action_details:
-                showDetailsDialog(mFilmstripController.getCurrentAdapterIndex());
-                return true;
-            case R.id.action_help_and_feedback:
-                mResetToPreviewOnResume = false;
-                new GoogleHelpHelper(this).launchGoogleHelp();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+
+        if(item.getItemId() == android.R.id.home){
+
+            onBackPressed();
+            return true;
+        }else if(item.getItemId() == R.id.action_details){
+            showDetailsDialog(mFilmstripController.getCurrentAdapterIndex());
+            return true;
+        }else if(item.getItemId() == R.id.action_help_and_feedback){
+            mResetToPreviewOnResume = false;
+            new GoogleHelpHelper(this).launchGoogleHelp();
+            return true;
+        }else{
+            return super.onOptionsItemSelected(item);
         }
     }
 
@@ -2700,15 +2699,18 @@ public class CameraActivity extends QuickActivity
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.tiny_planet_editor:
-                mMyFilmstripBottomControlListener.onTinyPlanet();
-                return true;
-            case R.id.photo_editor:
-                mMyFilmstripBottomControlListener.onEdit();
-                return true;
+
+        if(item.getItemId() == R.id.tiny_planet_editor){
+            mMyFilmstripBottomControlListener.onTinyPlanet();
+            return true;
         }
-        return false;
+        else if(item.getItemId() == R.id.photo_editor){
+            mMyFilmstripBottomControlListener.onEdit();
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     /**

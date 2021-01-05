@@ -7,7 +7,7 @@ android {
     buildToolsVersion "29.0.2"
 
     defaultConfig {
-        applicationId "com.kalu.camera"
+        applicationId "com.kalu.camera2"
         minSdkVersion 26
         targetSdkVersion 29
         versionCode 1

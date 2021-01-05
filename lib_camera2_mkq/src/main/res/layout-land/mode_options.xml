@@ -14,15 +14,16 @@
      limitations under the License.
 -->
 
-<com.android.camera.widget.ModeOptions
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:camera="http://schemas.android.com/apk/res/com.android.camera2"
+<com.android.camera.widget.ModeOptions xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mode_options"
     android:layout_width="@dimen/mode_options_height"
     android:layout_height="match_parent"
     android:layout_gravity="right"
     android:visibility="invisible"
-    android:background="#00000000" >
+    android:background="#00000000"
+    tools:ignore="MissingDefaultResource">
     <com.android.camera.ui.RadioOptions
         android:id="@+id/mode_options_exposure"
         android:layout_width="match_parent"
@@ -30,7 +31,7 @@
         android:orientation="vertical"
         android:gravity="center"
         android:background="@null"
-        camera:selected_drawable="@drawable/button_background_selected_photo"
+        app:selected_drawable="@drawable/button_background_selected_photo"
         android:visibility="invisible" >
         <ImageButton
             android:id="@+id/exposure_p2"
@@ -76,7 +77,7 @@
         android:orientation="vertical"
         android:gravity="center"
         android:background="@null"
-        camera:selected_drawable="@drawable/button_background_selected_pano"
+        app:selected_drawable="@drawable/button_background_selected_pano"
         android:visibility="invisible" >
         <!-- pano image buttons, ids, and descriptions are added at runtime -->
     </com.android.camera.ui.RadioOptions>
@@ -95,28 +96,28 @@
         <com.android.camera.MultiToggleImageButton
             android:id="@+id/camera_toggle_button"
             style="@style/ModeOption"
-            camera:imageIds="@array/camera_id_icons"
-            camera:contentDescriptionIds="@array/camera_id_descriptions" />
+            app:imageIds="@array/camera_id_icons"
+            app:contentDescriptionIds="@array/camera_id_descriptions" />
         <com.android.camera.MultiToggleImageButton
             android:id="@+id/flash_toggle_button"
             style="@style/ModeOption"
-            camera:imageIds="@array/camera_flashmode_icons"
-            camera:contentDescriptionIds="@array/camera_flash_descriptions" />
+            app:imageIds="@array/camera_flashmode_icons"
+            app:contentDescriptionIds="@array/camera_flash_descriptions" />
         <com.android.camera.MultiToggleImageButton
             android:id="@+id/hdr_plus_toggle_button"
             style="@style/ModeOption"
-            camera:imageIds="@array/pref_camera_hdr_plus_icons"
-            camera:contentDescriptionIds="@array/hdr_plus_descriptions" />
+            app:imageIds="@array/pref_camera_hdr_plus_icons"
+            app:contentDescriptionIds="@array/hdr_plus_descriptions" />
         <com.android.camera.MultiToggleImageButton
             android:id="@+id/grid_lines_toggle_button"
             style="@style/ModeOption"
-            camera:imageIds="@array/grid_lines_icons"
-            camera:contentDescriptionIds="@array/grid_lines_descriptions" />
+            app:imageIds="@array/grid_lines_icons"
+            app:contentDescriptionIds="@array/grid_lines_descriptions" />
         <com.android.camera.MultiToggleImageButton
             android:id="@+id/countdown_toggle_button"
             style="@style/ModeOption"
-            camera:imageIds="@array/countdown_duration_icons"
-            camera:contentDescriptionIds="@array/countdown_duration_descriptions" />
+            app:imageIds="@array/countdown_duration_icons"
+            app:contentDescriptionIds="@array/countdown_duration_descriptions" />
         <ImageButton
             android:id="@+id/exposure_button"
             style="@style/ModeOption"
