@@ -1,0 +1,65 @@
+plugins {
+    id 'com.android.library'
+}
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+
+    defaultConfig {
+//        applicationId "com.android.camera2"
+        minSdkVersion 26
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+
+        ndk {
+            abiFilters 'armeabi'
+//            abiFilters 'x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a'
+        }
+
+        externalNativeBuild {
+            cmake {
+                cppFlags "-std=c++14", "-fexceptions", "-O2"
+//                cppFlags "-ffast-math" "-O3" "-funroll-loops" "-Wall" "-Wextra" "-Werror"
+                abiFilters 'armeabi'
+            }
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "src/main/cpp/CMakeLists.txt"
+            version "3.10.2"
+        }
+    }
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java', 'src/main/java_pd', 'src/main/java_pd_gcam', 'src/main/java_frameworks/camera2/portability/src', 'src/main/java_frameworks/camera2/public/src', 'src/main/java_frameworks/camera2/utils/src']
+            res.srcDirs = ['src/main/res', 'src/main/res_p']
+        }
+
+//        // Move the tests to tests/java, tests/res, etc...
+//        androidTest.setRoot('tests')
+//
+//        debug.setRoot('build-types/debug')
+//        release.setRoot('build-types/release')
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'androidx.activity:activity:1.1.0'
+    implementation 'androidx.fragment:fragment:1.2.5'
+    implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
+    implementation 'com.github.bumptech.glide:glide:3.8.0'
+    implementation 'com.google.guava:guava:18.0'
+    implementation 'com.adobe.xmp:xmpcore:6.1.11'
+}

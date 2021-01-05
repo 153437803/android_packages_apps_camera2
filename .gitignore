@@ -1,0 +1,5 @@
+# Project exclude paths
+/.gradle/
+/lib_camera2_mkq/.cxx/
+/lib_camera2_mkq/build/
+/lib_camera2_mkq/build/intermediates/javac/debug/classes/
