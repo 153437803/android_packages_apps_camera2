@@ -36,7 +36,7 @@ android {
     }
     sourceSets {
         main {
-            java.srcDirs = ['src/main/java', 'src/main/java_pd', 'src/main/java_pd_gcam', 'src/main/java_frameworks/camera2/portability/src', 'src/main/java_frameworks/camera2/public/src', 'src/main/java_frameworks/camera2/utils/src']
+            java.srcDirs = ['src/main/java', 'src/main/java_pd', 'src/main/java_pd_gcam', 'src/main/java_frameworks_ex']
             res.srcDirs = ['src/main/res', 'src/main/res_p']
         }
 

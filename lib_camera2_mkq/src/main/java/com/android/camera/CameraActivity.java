@@ -192,10 +192,14 @@ public class CameraActivity extends QuickActivity
 
     private static final int MSG_CLEAR_SCREEN_ON_FLAG = 2;
     private static final long SCREEN_DELAY_MS = 2 * 60 * 1000; // 2 mins.
-    /** Load metadata for 10 items ahead of our current. */
+    /**
+     * Load metadata for 10 items ahead of our current.
+     */
     private static final int FILMSTRIP_PRELOAD_AHEAD_ITEMS = 10;
 
-    /** Should be used wherever a context is needed. */
+    /**
+     * Should be used wherever a context is needed.
+     */
     private Context mAppContext;
 
     /**
@@ -230,7 +234,9 @@ public class CameraActivity extends QuickActivity
     private FrameLayout mAboveFilmstripControlLayout;
     private FilmstripController mFilmstripController;
     private boolean mFilmstripVisible;
-    /** Whether the filmstrip fully covers the preview. */
+    /**
+     * Whether the filmstrip fully covers the preview.
+     */
     private boolean mFilmstripCoversPreview = false;
     private int mResultCodeForTesting;
     private Intent mResultDataForTesting;
@@ -268,16 +274,20 @@ public class CameraActivity extends QuickActivity
     private Menu mActionBarMenu;
     private Preloader<Integer, AsyncTask> mPreloader;
 
-    /** Can be used to play custom sounds. */
+    /**
+     * Can be used to play custom sounds.
+     */
     private SoundPlayer mSoundPlayer;
 
-    /** Holds configuration for various OneCamera features. */
+    /**
+     * Holds configuration for various OneCamera features.
+     */
     private OneCameraFeatureConfig mFeatureConfig;
 
     private static final int LIGHTS_OUT_DELAY_MS = 4000;
     private final int BASE_SYS_UI_VISIBILITY =
             View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-            | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
     private final Runnable mLightsOutRunnable = new Runnable() {
         @Override
         public void run() {
@@ -289,7 +299,9 @@ public class CameraActivity extends QuickActivity
     private MotionManager mMotionManager;
     private final Profiler mProfiler = Profilers.instance().guard();
 
-    /** First run dialog */
+    /**
+     * First run dialog
+     */
     private FirstRunDialog mFirstRunDialog;
 
     // Keep track of powershutter state
@@ -369,7 +381,7 @@ public class CameraActivity extends QuickActivity
                     }
                     final int currentDataId = getCurrentDataId();
                     UsageStatistics.instance().mediaInteraction(fileNameFromAdapterAtIndex(
-                                currentDataId),
+                            currentDataId),
                             MediaInteraction.InteractionType.EDIT,
                             NavigationChange.InteractionCause.BUTTON,
                             fileAgeFromAdapterAtIndex(currentDataId));
@@ -390,7 +402,7 @@ public class CameraActivity extends QuickActivity
                 public void onDelete() {
                     final int currentDataId = getCurrentDataId();
                     UsageStatistics.instance().mediaInteraction(fileNameFromAdapterAtIndex(
-                                currentDataId),
+                            currentDataId),
                             MediaInteraction.InteractionType.DELETE,
                             NavigationChange.InteractionCause.BUTTON,
                             fileAgeFromAdapterAtIndex(currentDataId));
@@ -407,7 +419,7 @@ public class CameraActivity extends QuickActivity
 
                     final int currentDataId = getCurrentDataId();
                     UsageStatistics.instance().mediaInteraction(fileNameFromAdapterAtIndex(
-                                currentDataId),
+                            currentDataId),
                             MediaInteraction.InteractionType.SHARE,
                             NavigationChange.InteractionCause.BUTTON,
                             fileAgeFromAdapterAtIndex(currentDataId));
@@ -458,7 +470,7 @@ public class CameraActivity extends QuickActivity
                     final String msgShareTo = getResources().getString(R.string.share_to);
 
                     if (item.getMetadata().isPanorama360() &&
-                          item.getData().getUri() != Uri.EMPTY) {
+                            item.getData().getUri() != Uri.EMPTY) {
                         intent = new Intent(Intent.ACTION_SEND);
                         intent.setType(FilmstripItemData.MIME_TYPE_PHOTOSPHERE);
                         intent.putExtra(Intent.EXTRA_STREAM, contentUri);
@@ -670,17 +682,17 @@ public class CameraActivity extends QuickActivity
                 @Override
                 public void onFocusedDataPromoted(int adapterIndex) {
                     UsageStatistics.instance().mediaInteraction(fileNameFromAdapterAtIndex(
-                                adapterIndex),
+                            adapterIndex),
                             MediaInteraction.InteractionType.DELETE,
                             NavigationChange.InteractionCause.SWIPE_UP, fileAgeFromAdapterAtIndex(
-                                adapterIndex));
+                                    adapterIndex));
                     removeItemAt(adapterIndex);
                 }
 
                 @Override
                 public void onFocusedDataDemoted(int adapterIndex) {
                     UsageStatistics.instance().mediaInteraction(fileNameFromAdapterAtIndex(
-                                adapterIndex),
+                            adapterIndex),
                             MediaInteraction.InteractionType.DELETE,
                             NavigationChange.InteractionCause.SWIPE_DOWN,
                             fileAgeFromAdapterAtIndex(adapterIndex));
@@ -750,7 +762,7 @@ public class CameraActivity extends QuickActivity
                 public void onZoomAtIndexChanged(int adapterIndex, float zoom) {
                     final FilmstripItem filmstripItem = mDataAdapter.getItemAt(adapterIndex);
                     long ageMillis = System.currentTimeMillis()
-                          - filmstripItem.getData().getLastModifiedDate().getTime();
+                            - filmstripItem.getData().getLastModifiedDate().getTime();
 
                     // Do not log if items is to old or does not have a path (which is
                     // being used as a key).
@@ -760,8 +772,8 @@ public class CameraActivity extends QuickActivity
                     }
                     File localFile = new File(filmstripItem.getData().getFilePath());
                     UsageStatistics.instance().mediaView(localFile.getName(),
-                          filmstripItem.getData().getLastModifiedDate().getTime(), zoom);
-               }
+                            filmstripItem.getData().getLastModifiedDate().getTime(), zoom);
+                }
 
                 @Override
                 public void onDataFocusChanged(final int prevIndex, final int newIndex) {
@@ -817,7 +829,7 @@ public class CameraActivity extends QuickActivity
      * lights-out at all times.
      *
      * @param visible is false, this hides the action bar and filmstrip bottom
-     *            controls.
+     *                controls.
      */
     private void setFilmstripUiVisibility(boolean visible) {
         mLightsOutRunnable.run();
@@ -997,7 +1009,7 @@ public class CameraActivity extends QuickActivity
 
                 @Override
                 public void onSessionFailed(Uri uri, int failureMessageId,
-                        boolean removeFromFilmstrip) {
+                                            boolean removeFromFilmstrip) {
                     Log.v(TAG, "onSessionFailed:" + uri);
 
                     int failedIndex = mDataAdapter.findByContentUri(uri);
@@ -1072,10 +1084,10 @@ public class CameraActivity extends QuickActivity
         // this could cause user issues, so log a stack trace noting the call path
         // which resulted in this scenario.
 
-        CameraId cameraId =  mCameraController.getCurrentCameraId();
+        CameraId cameraId = mCameraController.getCurrentCameraId();
 
-        if(cameraId == null) {
-            Log.e(TAG,  "Retrieving Camera Setting Scope with -1");
+        if (cameraId == null) {
+            Log.e(TAG, "Retrieving Camera Setting Scope with -1");
             return SettingsManager.getCameraSettingScope("-1");
         }
 
@@ -1367,18 +1379,18 @@ public class CameraActivity extends QuickActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle presses on the action bar items
 
-        if(item.getItemId() == android.R.id.home){
+        if (item.getItemId() == android.R.id.home) {
 
             onBackPressed();
             return true;
-        }else if(item.getItemId() == R.id.action_details){
+        } else if (item.getItemId() == R.id.action_details) {
             showDetailsDialog(mFilmstripController.getCurrentAdapterIndex());
             return true;
-        }else if(item.getItemId() == R.id.action_help_and_feedback){
+        } else if (item.getItemId() == R.id.action_help_and_feedback) {
             mResetToPreviewOnResume = false;
             new GoogleHelpHelper(this).launchGoogleHelp();
             return true;
-        }else{
+        } else {
             return super.onOptionsItemSelected(item);
         }
     }
@@ -1398,44 +1410,47 @@ public class CameraActivity extends QuickActivity
      * is destroyed since we're otherwise leaking the Activity reference.
      */
     private final CameraExceptionHandler.CameraExceptionCallback mCameraExceptionCallback
-        = new CameraExceptionHandler.CameraExceptionCallback() {
-                @Override
-                public void onCameraError(int errorCode) {
-                    // Not a fatal error. only do Log.e().
-                    Log.e(TAG, "Camera error callback. error=" + errorCode);
-                }
-                @Override
-                public void onCameraException(
-                        RuntimeException ex, String commandHistory, int action, int state) {
-                    Log.e(TAG, "Camera Exception", ex);
-                    UsageStatistics.instance().cameraFailure(
-                            eventprotos.CameraFailure.FailureReason.API_RUNTIME_EXCEPTION,
-                            commandHistory, action, state);
-                    onFatalError();
-                }
-                @Override
-                public void onDispatchThreadException(RuntimeException ex) {
-                    Log.e(TAG, "DispatchThread Exception", ex);
-                    UsageStatistics.instance().cameraFailure(
-                            eventprotos.CameraFailure.FailureReason.API_TIMEOUT,
-                            null, UsageStatistics.NONE, UsageStatistics.NONE);
-                    onFatalError();
-                }
-                private void onFatalError() {
-                    if (mCameraFatalError) {
-                        return;
-                    }
-                    mCameraFatalError = true;
+            = new CameraExceptionHandler.CameraExceptionCallback() {
+        @Override
+        public void onCameraError(int errorCode) {
+            // Not a fatal error. only do Log.e().
+            Log.e(TAG, "Camera error callback. error=" + errorCode);
+        }
 
-                    // If the activity receives exception during onPause, just exit the app.
-                    if (mPaused && !isFinishing()) {
-                        Log.e(TAG, "Fatal error during onPause, call Activity.finish()");
-                        finish();
-                    } else {
-                        mFatalErrorHandler.handleFatalError(FatalErrorHandler.Reason.CANNOT_CONNECT_TO_CAMERA);
-                    }
-                }
-            };
+        @Override
+        public void onCameraException(
+                RuntimeException ex, String commandHistory, int action, int state) {
+            Log.e(TAG, "Camera Exception", ex);
+            UsageStatistics.instance().cameraFailure(
+                    eventprotos.CameraFailure.FailureReason.API_RUNTIME_EXCEPTION,
+                    commandHistory, action, state);
+            onFatalError();
+        }
+
+        @Override
+        public void onDispatchThreadException(RuntimeException ex) {
+            Log.e(TAG, "DispatchThread Exception", ex);
+            UsageStatistics.instance().cameraFailure(
+                    eventprotos.CameraFailure.FailureReason.API_TIMEOUT,
+                    null, UsageStatistics.NONE, UsageStatistics.NONE);
+            onFatalError();
+        }
+
+        private void onFatalError() {
+            if (mCameraFatalError) {
+                return;
+            }
+            mCameraFatalError = true;
+
+            // If the activity receives exception during onPause, just exit the app.
+            if (mPaused && !isFinishing()) {
+                Log.e(TAG, "Fatal error during onPause, call Activity.finish()");
+                finish();
+            } else {
+                mFatalErrorHandler.handleFatalError(FatalErrorHandler.Reason.CANNOT_CONNECT_TO_CAMERA);
+            }
+        }
+    };
 
     @Override
     public void onNewIntentTasks(Intent intent) {
@@ -1466,8 +1481,8 @@ public class CameraActivity extends QuickActivity
         if (!Glide.isSetup()) {
             Context context = getAndroidContext();
             Glide.setup(new GlideBuilder(context)
-                .setDecodeFormat(DecodeFormat.ALWAYS_ARGB_8888)
-                .setResizeService(new FifoPriorityThreadPoolExecutor(2)));
+                    .setDecodeFormat(DecodeFormat.ALWAYS_ARGB_8888)
+                    .setResizeService(new FifoPriorityThreadPoolExecutor(2)));
 
             Glide glide = Glide.get(context);
 
@@ -1633,12 +1648,12 @@ public class CameraActivity extends QuickActivity
         ContentResolver appContentResolver = mAppContext.getContentResolver();
         GlideFilmstripManager glideManager = new GlideFilmstripManager(mAppContext);
         mPhotoItemFactory = new PhotoItemFactory(mAppContext, glideManager, appContentResolver,
-              new PhotoDataFactory());
+                new PhotoDataFactory());
         mVideoItemFactory = new VideoItemFactory(mAppContext, glideManager, appContentResolver,
-              new VideoDataFactory());
+                new VideoDataFactory());
         mCameraAppUI.getFilmstripContentPanel().setFilmstripListener(mFilmstripListener);
         if (mSettingsManager.getBoolean(SettingsManager.SCOPE_GLOBAL,
-                                        Keys.KEY_SHOULD_SHOW_REFOCUS_VIEWER_CLING)) {
+                Keys.KEY_SHOULD_SHOW_REFOCUS_VIEWER_CLING)) {
             mCameraAppUI.setupClingForViewer(CameraAppUI.BottomPanel.VIEWER_REFOCUS);
         }
 
@@ -1662,8 +1677,8 @@ public class CameraActivity extends QuickActivity
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI, true,
                 mLocalImagesObserver);
         getContentResolver().registerContentObserver(
-              MediaStore.Video.Media.EXTERNAL_CONTENT_URI, true,
-              mLocalVideosObserver);
+                MediaStore.Video.Media.EXTERNAL_CONTENT_URI, true,
+                mLocalVideosObserver);
 
         mMemoryManager = getServices().getMemoryManager();
 
@@ -1672,37 +1687,37 @@ public class CameraActivity extends QuickActivity
             public void run() {
                 HashMap memoryData = mMemoryManager.queryMemory();
                 UsageStatistics.instance().reportMemoryConsumed(memoryData,
-                      MemoryQuery.REPORT_LABEL_LAUNCH);
+                        MemoryQuery.REPORT_LABEL_LAUNCH);
             }
         });
 
         mMotionManager = getServices().getMotionManager();
 
         mFirstRunDialog = new FirstRunDialog(this,
-              this /* as context */,
-              mResolutionSetting,
-              mSettingsManager,
-              mOneCameraManager,
-              new FirstRunDialog.FirstRunDialogListener() {
-            @Override
-            public void onFirstRunStateReady() {
-                // Run normal resume tasks.
-                resume();
-            }
+                this /* as context */,
+                mResolutionSetting,
+                mSettingsManager,
+                mOneCameraManager,
+                new FirstRunDialog.FirstRunDialogListener() {
+                    @Override
+                    public void onFirstRunStateReady() {
+                        // Run normal resume tasks.
+                        resume();
+                    }
 
-            @Override
-            public void onFirstRunDialogCancelled() {
-                // App isn't functional until users finish first run dialog.
-                // We need to finish here since users hit back button during
-                // first run dialog (b/19593942).
-                finish();
-            }
+                    @Override
+                    public void onFirstRunDialogCancelled() {
+                        // App isn't functional until users finish first run dialog.
+                        // We need to finish here since users hit back button during
+                        // first run dialog (b/19593942).
+                        finish();
+                    }
 
-            @Override
-            public void onCameraAccessException() {
-                mFatalErrorHandler.onGenericCameraAccessFailure();
-            }
-        });
+                    @Override
+                    public void onCameraAccessException() {
+                        mFatalErrorHandler.onGenericCameraAccessFailure();
+                    }
+                });
         profile.stop();
     }
 
@@ -1726,10 +1741,10 @@ public class CameraActivity extends QuickActivity
             // Capture intent.
             modeIndex = captureIntentIndex;
         } else if (MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA.equals(intentAction)
-                ||MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA_SECURE.equals(intentAction)
+                || MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA_SECURE.equals(intentAction)
                 || MediaStore.ACTION_IMAGE_CAPTURE_SECURE.equals(intentAction)) {
             modeIndex = mSettingsManager.getInteger(SettingsManager.SCOPE_GLOBAL,
-                Keys.KEY_CAMERA_MODULE_LAST_USED);
+                    Keys.KEY_CAMERA_MODULE_LAST_USED);
 
             // For upgraders who have not seen the aspect ratio selection screen,
             // we need to drop them back in the photo module and have them select
@@ -1743,7 +1758,7 @@ public class CameraActivity extends QuickActivity
             // If the activity has not been started using an explicit intent,
             // read the module index from the last time the user changed modes
             modeIndex = mSettingsManager.getInteger(SettingsManager.SCOPE_GLOBAL,
-                                                    Keys.KEY_STARTUP_MODULE_INDEX);
+                    Keys.KEY_STARTUP_MODULE_INDEX);
             if ((modeIndex == gcamIndex &&
                     !GcamHelper.hasGcamAsSeparateModule(mFeatureConfig)) || modeIndex < 0) {
                 modeIndex = photoIndex;
@@ -1756,7 +1771,7 @@ public class CameraActivity extends QuickActivity
      * Incase the calling package doesn't have ACCESS_FINE_LOCATION permissions, we should not pass
      * it valid location information in exif.
      */
-    private boolean shouldUseNoOpLocation () {
+    private boolean shouldUseNoOpLocation() {
         String callingPackage = getCallingPackage();
         if (callingPackage == null) {
             // Activity not started through startActivityForResult.
@@ -1778,13 +1793,14 @@ public class CameraActivity extends QuickActivity
                 if (packageInfo.requestedPermissions[i].equals(
                         Manifest.permission.ACCESS_FINE_LOCATION) &&
                         (packageInfo.requestedPermissionsFlags[i] &
-                        PackageInfo.REQUESTED_PERMISSION_GRANTED) != 0) {
-                  return false;
+                                PackageInfo.REQUESTED_PERMISSION_GRANTED) != 0) {
+                    return false;
                 }
             }
         }
         return true;
     }
+
     /**
      * Call this whenever the mode drawer or filmstrip change the visibility
      * state.
@@ -1811,7 +1827,7 @@ public class CameraActivity extends QuickActivity
     private int getPreviewVisibility() {
         if (mFilmstripCoversPreview) {
             return ModuleController.VISIBILITY_HIDDEN;
-        } else if (mModeListVisible){
+        } else if (mModeListVisible) {
             return ModuleController.VISIBILITY_COVERED;
         } else {
             return ModuleController.VISIBILITY_VISIBLE;
@@ -1864,8 +1880,8 @@ public class CameraActivity extends QuickActivity
          */
         if (!isCaptureIntent()) {
             mSettingsManager.set(SettingsManager.SCOPE_GLOBAL,
-                                 Keys.KEY_STARTUP_MODULE_INDEX,
-                mCurrentModeIndex);
+                    Keys.KEY_STARTUP_MODULE_INDEX,
+                    mCurrentModeIndex);
         }
 
         mPaused = true;
@@ -1961,9 +1977,9 @@ public class CameraActivity extends QuickActivity
         if (!mHasCriticalPermissions || (mSettingsManager.getBoolean(
                 SettingsManager.SCOPE_GLOBAL, Keys.KEY_RECORD_LOCATION) &&
                 (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
-                   != PackageManager.PERMISSION_GRANTED) &&
+                        != PackageManager.PERMISSION_GRANTED) &&
                 !mSettingsManager.getBoolean(SettingsManager.SCOPE_GLOBAL,
-                    Keys.KEY_HAS_SEEN_PERMISSIONS_DIALOGS))) {
+                        Keys.KEY_HAS_SEEN_PERMISSIONS_DIALOGS))) {
             // TODO: Convert PermissionsActivity into a dialog so we
             // don't lose the state of CameraActivity.
             Intent intent = new Intent(this, PermissionsActivity.class);
@@ -2100,7 +2116,7 @@ public class CameraActivity extends QuickActivity
 
         if (!mResetToPreviewOnResume) {
             FilmstripItem item = mDataAdapter.getItemAt(
-                  mFilmstripController.getCurrentAdapterIndex());
+                    mFilmstripController.getCurrentAdapterIndex());
             if (item != null) {
                 mDataAdapter.refresh(item.getData().getUri());
             }
@@ -2135,11 +2151,11 @@ public class CameraActivity extends QuickActivity
         if (!mSecureCamera) {
             mLocalImagesObserver.setForegroundChangeListener(
                     new FilmstripContentObserver.ChangeListener() {
-                @Override
-                public void onChange() {
-                    mDataAdapter.requestLoadNewPhotos();
-                }
-            });
+                        @Override
+                        public void onChange() {
+                            mDataAdapter.requestLoadNewPhotos();
+                        }
+                    });
         }
 
         keepScreenOnForAWhile();
@@ -2148,13 +2164,13 @@ public class CameraActivity extends QuickActivity
         final View rootView = findViewById(R.id.activity_root_view);
         mLightsOutRunnable.run();
         getWindow().getDecorView().setOnSystemUiVisibilityChangeListener(
-              new OnSystemUiVisibilityChangeListener() {
-                  @Override
-                  public void onSystemUiVisibilityChange(int visibility) {
-                      mMainHandler.removeCallbacks(mLightsOutRunnable);
-                      mMainHandler.postDelayed(mLightsOutRunnable, LIGHTS_OUT_DELAY_MS);
-                  }
-              });
+                new OnSystemUiVisibilityChangeListener() {
+                    @Override
+                    public void onSystemUiVisibilityChange(int visibility) {
+                        mMainHandler.removeCallbacks(mLightsOutRunnable);
+                        mMainHandler.postDelayed(mLightsOutRunnable, LIGHTS_OUT_DELAY_MS);
+                    }
+                });
 
         profile.mark();
         mPanoramaViewHelper.onResume();
@@ -2248,7 +2264,7 @@ public class CameraActivity extends QuickActivity
         mOrientationManager = null;
         mButtonManager = null;
         if (mSoundPlayer != null) {
-          mSoundPlayer.release();
+            mSoundPlayer.release();
         }
         if (mFirstRunDialog != null) {
             mFirstRunDialog.dismiss();
@@ -2345,8 +2361,8 @@ public class CameraActivity extends QuickActivity
             } else if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
                 boolean wentToPrevious = mFilmstripController.goToPreviousItem();
                 if (!wentToPrevious) {
-                  // at beginning of filmstrip, hide and go back to preview
-                  mCameraAppUI.hideFilmstrip();
+                    // at beginning of filmstrip, hide and go back to preview
+                    mCameraAppUI.hideFilmstrip();
                 }
                 return true;
             }
@@ -2377,7 +2393,7 @@ public class CameraActivity extends QuickActivity
 
         // add a button for launching the gallery
         if (mGalleryIntent != null) {
-            CharSequence appName =  IntentHelper.getGalleryAppName(mAppContext, mGalleryIntent);
+            CharSequence appName = IntentHelper.getGalleryAppName(mAppContext, mGalleryIntent);
             if (appName != null) {
                 MenuItem menuItem = menu.add(appName);
                 menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
@@ -2431,9 +2447,10 @@ public class CameraActivity extends QuickActivity
          */
         (new AsyncTask<Void, Void, Long>() {
             @Override
-            protected Long doInBackground(Void ... arg) {
+            protected Long doInBackground(Void... arg) {
                 synchronized (mStorageSpaceLock) {
                     mStorageSpaceBytes = Storage.getAvailableSpace();
+//                    mStorageSpaceBytes = 60000000L;
                     return mStorageSpaceBytes;
                 }
             }
@@ -2539,8 +2556,8 @@ public class CameraActivity extends QuickActivity
         if (modeIndex == getResources().getInteger(R.integer.camera_mode_photo)
                 || modeIndex == getResources().getInteger(R.integer.camera_mode_gcam)) {
             mSettingsManager.set(SettingsManager.SCOPE_GLOBAL,
-                                 Keys.KEY_CAMERA_MODULE_LAST_USED,
-                                 modeIndex);
+                    Keys.KEY_CAMERA_MODULE_LAST_USED,
+                    modeIndex);
         }
 
         closeModule(mCurrentModule);
@@ -2555,7 +2572,7 @@ public class CameraActivity extends QuickActivity
         // Store the module index so we can use it the next time the Camera
         // starts up.
         mSettingsManager.set(SettingsManager.SCOPE_GLOBAL,
-                             Keys.KEY_STARTUP_MODULE_INDEX, modeIndex);
+                Keys.KEY_STARTUP_MODULE_INDEX, modeIndex);
     }
 
     /**
@@ -2572,24 +2589,26 @@ public class CameraActivity extends QuickActivity
             /* Need to explicitly request keyguard dismissal for PIN/pattern
              * entry to show up directly. */
             requestDismissKeyguard(
-                /* requesting Activity: */ CameraActivity.this,
-                new KeyguardDismissCallback() {
-                    @Override
-                    public void onDismissSucceeded() {
-                        /* Need to use launchActivityByIntent() so that going
-                         * back from settings after unlock leads to main
-                         * activity instead of dismissing camera entirely. */
-                        launchActivityByIntent(intent);
+                    /* requesting Activity: */ CameraActivity.this,
+                    new KeyguardDismissCallback() {
+                        @Override
+                        public void onDismissSucceeded() {
+                            /* Need to use launchActivityByIntent() so that going
+                             * back from settings after unlock leads to main
+                             * activity instead of dismissing camera entirely. */
+                            launchActivityByIntent(intent);
+                        }
+
+                        @Override
+                        public void onDismissError() {
+                            Log.e(TAG, "Keyguard dismissal failed.");
+                        }
+
+                        @Override
+                        public void onDismissCancelled() {
+                            Log.d(TAG, "Keyguard dismissal canceled.");
+                        }
                     }
-                    @Override
-                    public void onDismissError() {
-                        Log.e(TAG, "Keyguard dismissal failed.");
-                    }
-                    @Override
-                    public void onDismissCancelled() {
-                        Log.d(TAG, "Keyguard dismissal canceled.");
-                    }
-                }
             );
         }
     }
@@ -2700,15 +2719,13 @@ public class CameraActivity extends QuickActivity
     @Override
     public boolean onContextItemSelected(MenuItem item) {
 
-        if(item.getItemId() == R.id.tiny_planet_editor){
+        if (item.getItemId() == R.id.tiny_planet_editor) {
             mMyFilmstripBottomControlListener.onTinyPlanet();
             return true;
-        }
-        else if(item.getItemId() == R.id.photo_editor){
+        } else if (item.getItemId() == R.id.photo_editor) {
             mMyFilmstripBottomControlListener.onEdit();
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
@@ -2717,8 +2734,8 @@ public class CameraActivity extends QuickActivity
      * Launch the tiny planet editor.
      *
      * @param data The data must be a 360 degree stereographically mapped
-     *            panoramic image. It will not be modified, instead a new item
-     *            with the result will be added to the filmstrip.
+     *             panoramic image. It will not be modified, instead a new item
+     *             with the result will be added to the filmstrip.
      */
     public void launchTinyPlanetEditor(FilmstripItem data) {
         TinyPlanetFragment fragment = new TinyPlanetFragment();
@@ -2986,7 +3003,7 @@ public class CameraActivity extends QuickActivity
             FilmstripItem currentFilmstripItem = mDataAdapter.getItemAt(currentIndex);
             if (currentFilmstripItem != null) {
                 GalleryHelper.setContentUri(startGalleryIntent,
-                      currentFilmstripItem.getData().getUri());
+                        currentFilmstripItem.getData().getUri());
             }
             launchActivityByIntent(startGalleryIntent);
         } catch (ActivityNotFoundException e) {
@@ -3044,7 +3061,7 @@ public class CameraActivity extends QuickActivity
         filmstripBottomPanel.setEditButtonVisibility(
                 currentData.getAttributes().canEdit());
         filmstripBottomPanel.setShareButtonVisibility(
-              currentData.getAttributes().canShare());
+                currentData.getAttributes().canShare());
         filmstripBottomPanel.setDeleteButtonVisibility(
                 currentData.getAttributes().canDelete());
 
